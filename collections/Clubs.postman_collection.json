@@ -1,0 +1,857 @@
+{
+	"info": {
+		"_postman_id": "be3ca6b3-76c8-4b1b-aaf9-9757105556cb",
+		"name": "Clubs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31287824"
+	},
+	"item": [
+		{
+			"name": "Crear un club válido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = pm.response.json()\r",
+							"pm.environment.set(\"club_id_1\", data.id)\r",
+							"\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"   pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nombre\":\"Los Lagartos\",\r\n  \"fechaFundacion\": \"2016-11-05\",\r\n  \"imagen\": \"www.imagen2.com\",\r\n  \"descripcion\": \"Este es el club 2\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/clubs",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"clubs"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Crear un club válido",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nombre\":\"Los Lagartos\",\r\n  \"fechaFundacion\": \"2016-11-05\",\r\n  \"imagen\": \"www.imagen2.com\",\r\n  \"descripcion\": \"Este es el club 2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/clubs",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"clubs"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "160"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"a0-iDp+U2S8jqWJtzW4flYWAWJgq7Y\""
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 17 May 2024 19:47:08 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"nombre\": \"Los Lagartos\",\n    \"fechaFundacion\": \"2016-11-05\",\n    \"imagen\": \"www.imagen2.com\",\n    \"descripcion\": \"Este es el club 2\",\n    \"id\": \"5db367c8-455e-4f76-8281-f0e9490d6a6e\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Crear un club inválido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 412\", function () {\r",
+							"   pm.response.to.have.status(412);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Get expected error message\", function () {\r",
+							"   var data = pm.response.json();\r",
+							"   pm.expect(data.message).to.eql(\"The description from club with the given id was not valid\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nombre\":\"Los Lagartos\",\r\n  \"fechaFundacion\": \"2016-11-05\",\r\n  \"imagen\": \"www.imagen2.com\",\r\n  \"descripcion\": \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/clubs",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"clubs"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Crear un club no válido",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nombre\":\"Los Lagartos\",\r\n  \"fechaFundacion\": \"2016-11-05\",\r\n  \"imagen\": \"www.imagen2.com\",\r\n  \"descripcion\": \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/clubs",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"clubs"
+							]
+						}
+					},
+					"status": "Precondition Failed",
+					"code": 412,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "88"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"58-VdAANNGBHyd0Zdtazql590HX9Hc\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 19 May 2024 17:36:55 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"statusCode\": 412,\n    \"message\": \"The description from club with the given id was not valid\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Obtener todos los clubs",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Number of clubs > ' + 0, function () {\r",
+							"   var data = pm.response.json()\r",
+							"   pm.expect(data.length).to.greaterThan(0)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"   pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/clubs",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"clubs"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Obtener todos los clubs",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/clubs",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"clubs"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "188"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"bc-1fPU6RaK3eOZS+ksH5nwj4sjr+U\""
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 17 May 2024 19:47:25 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": \"5db367c8-455e-4f76-8281-f0e9490d6a6e\",\n        \"nombre\": \"Los Lagartos\",\n        \"fechaFundacion\": \"2016-11-05T05:00:00.000Z\",\n        \"imagen\": \"www.imagen2.com\",\n        \"descripcion\": \"Este es el club 2\",\n        \"socios\": []\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "Obtener un club por ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"   pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/clubs/{{club_id_1}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"clubs",
+						"{{club_id_1}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Obtener un club por ID",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/clubs/{{club_id_1}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"clubs",
+								"{{club_id_1}}"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "186"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"ba-J0Sn58di5idzcHVn2huNY28cCt0\""
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 17 May 2024 19:48:11 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": \"5db367c8-455e-4f76-8281-f0e9490d6a6e\",\n    \"nombre\": \"Los Lagartos\",\n    \"fechaFundacion\": \"2016-11-05T05:00:00.000Z\",\n    \"imagen\": \"www.imagen2.com\",\n    \"descripcion\": \"Este es el club 2\",\n    \"socios\": []\n}"
+				}
+			]
+		},
+		{
+			"name": "Obtener un club por un ID que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"   pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Get expected error message\", function () {\r",
+							"   var data = pm.response.json();\r",
+							"   pm.expect(data.message).to.eql(\"The club with the given id was not found\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/clubs/00000000-0000-0000-0000-000000000000",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"clubs",
+						"00000000-0000-0000-0000-000000000000"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Obtener un club por un ID que no existe",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/clubs/00000000-0000-0000-0000-000000000000",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"clubs",
+								"00000000-0000-0000-0000-000000000000"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "71"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"47-F8gXiYC/sXiwXpmiYfejWFdUp/A\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 19 May 2024 17:38:17 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"statusCode\": 404,\n    \"message\": \"The club with the given id was not found\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Actualizar un club",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"   pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nombre\":\"Arrayanes\",\r\n  \"fechaFundacion\": \"2016-11-05\",\r\n  \"imagen\": \"www.imagen2.com\",\r\n  \"descripcion\": \"Este es el club 2\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/clubs/{{club_id_1}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"clubs",
+						"{{club_id_1}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Actualizar un club",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nombre\":\"Arrayanes\",\r\n  \"fechaFundacion\": \"2016-11-05\",\r\n  \"imagen\": \"www.imagen2.com\",\r\n  \"descripcion\": \"Este es el club 2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/clubs/{{club_id_1}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"clubs",
+								"{{club_id_1}}"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "157"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"9d-MIu5pY0o36rw8UMxc3k+3N8KRi0\""
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 17 May 2024 19:48:15 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": \"5db367c8-455e-4f76-8281-f0e9490d6a6e\",\n    \"nombre\": \"Arrayanes\",\n    \"fechaFundacion\": \"2016-11-05\",\n    \"imagen\": \"www.imagen2.com\",\n    \"descripcion\": \"Este es el club 2\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Actualizar un club por un ID que no existe Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"   pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Get expected error message\", function () {\r",
+							"   var data = pm.response.json();\r",
+							"   pm.expect(data.message).to.eql(\"The club with the given id was not found\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nombre\":\"Arrayanes\",\r\n  \"fechaFundacion\": \"2016-11-05\",\r\n  \"imagen\": \"www.imagen2.com\",\r\n  \"descripcion\": \"Este es el club 2\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/clubs/00000000-0000-0000-0000-000000000000",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"clubs",
+						"00000000-0000-0000-0000-000000000000"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Actualizar un club por un ID que no existe Copy",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nombre\":\"Arrayanes\",\r\n  \"fechaFundacion\": \"2016-11-05\",\r\n  \"imagen\": \"www.imagen2.com\",\r\n  \"descripcion\": \"Este es el club 2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/clubs/00000000-0000-0000-0000-000000000000",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"clubs",
+								"00000000-0000-0000-0000-000000000000"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "71"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"47-F8gXiYC/sXiwXpmiYfejWFdUp/A\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 19 May 2024 17:39:11 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"statusCode\": 404,\n    \"message\": \"The club with the given id was not found\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Eliminar un club por su ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"   pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/clubs/{{club_id_1}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"clubs",
+						"{{club_id_1}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Eliminar un club por su ID",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/clubs/{{club_id_1}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"clubs",
+								"{{club_id_1}}"
+							]
+						}
+					},
+					"status": "No Content",
+					"code": 204,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 17 May 2024 19:48:29 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "Eliminar un club por un ID que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"   pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Get expected error message\", function () {\r",
+							"   var data = pm.response.json();\r",
+							"   pm.expect(data.message).to.eql(\"The club with the given id was not found\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/clubs/00000000-0000-0000-0000-000000000000",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"clubs",
+						"00000000-0000-0000-0000-000000000000"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Eliminar un club por un ID que no existe",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/clubs/00000000-0000-0000-0000-000000000000",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"clubs",
+								"00000000-0000-0000-0000-000000000000"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "71"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"47-F8gXiYC/sXiwXpmiYfejWFdUp/A\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 19 May 2024 17:40:05 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"statusCode\": 404,\n    \"message\": \"The club with the given id was not found\"\n}"
+				}
+			]
+		}
+	]
+}

@@ -6,7 +6,7 @@ import { ClubEntity } from './club.entity';
 import { plainToInstance } from 'class-transformer';
 import { BusinessErrorsInterceptor } from '../shared/interceptors/business-errors/business-errors.interceptor';
 
-@Controller('club')
+@Controller('clubs')
 @UseInterceptors(BusinessErrorsInterceptor)
 export class ClubController {
 

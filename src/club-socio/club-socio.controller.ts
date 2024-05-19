@@ -6,7 +6,7 @@ import { plainToInstance } from 'class-transformer';
 import { SocioEntity } from '../socio/socio.entity';
 import { SocioDto } from '../socio/socio.dto';
 
-@Controller('club')
+@Controller('clubs')
 @UseInterceptors(BusinessErrorsInterceptor)
 export class ClubSocioController {
 
@@ -14,35 +14,35 @@ export class ClubSocioController {
     constructor(private readonly clubSocioService: ClubSocioService){}
 
     //Add socio a club
-    @Post(':clubId/socios/:socioId')
-   async addArtworkMuseum(@Param('clubId') clubId: string, @Param('socioId') socioId: string){
+    @Post(':clubId/members/:socioId')
+   async addMemberToClub(@Param('clubId') clubId: string, @Param('socioId') socioId: string){
        return await this.clubSocioService.addMemberToClub(clubId, socioId);
    }
 
    //Get socio by clubID socioID
-   @Get(":clubId/socios/:socioId")
-   async getByClubIdBySocioId(@Param('clubId') clubId: string, @Param('socioId') socioId: string){
+   @Get(":clubId/members/:socioId")
+   async findMemberFromClub(@Param('clubId') clubId: string, @Param('socioId') socioId: string){
     return await this.clubSocioService.findMemberFromClub(socioId, clubId);
    }
 
    //Get socios by clubId
-   @Get(":clubId/socios")
-   async getSocios(@Param("clubId") clubId: string){
+   @Get(":clubId/members")
+   async findMembersFromClub(@Param("clubId") clubId: string){
     return await this.clubSocioService.findMembersFromClub(clubId)
    }
 
    //Associate socios by clubId
-   @Put(":clubId/socios")
-   async associateCometnariosToreno(@Param("clubId") clubId: string, @Body() SocioDto: SocioDto[]){
+   @Put(":clubId/members")
+   async updateMembersFromClub(@Param("clubId") clubId: string, @Body() SocioDto: SocioDto[]){
     
     const socios = plainToInstance(SocioEntity, SocioDto)
-    return await this.clubSocioService.updateMemberFromClub(clubId, socios)
+    return await this.clubSocioService.updateMembersFromClub(clubId, socios)
    }
 
    //Delete Socio from toreno
-   @Delete(":clubId/socios/:socioId")
+   @Delete(":clubId/members/:socioId")
    @HttpCode(204)
-   async deleteSocioClub(@Param('clubId') clubId: string, @Param('socioId') socioId: string){
+   async deleteMemberFromClub(@Param('clubId') clubId: string, @Param('socioId') socioId: string){
     return await this.clubSocioService.deleteMemberFromClub(clubId, socioId)
    }
 

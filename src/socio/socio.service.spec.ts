@@ -32,8 +32,8 @@ describe('SocioService', () => {
     for(let i = 0; i < 5; i++){
         const socio: SocioEntity = await repository.save({
           usuario: faker.lorem.sentence(), 
-          correo: faker.lorem.sentence(),
-          fechaNacimiento: faker.lorem.sentence()
+          correo: faker.internet.email(),
+          fechaNacimiento: faker.date.past({years: 18})
         })
         socioList.push(socio);
     }
@@ -50,8 +50,8 @@ describe('SocioService', () => {
   const socio: SocioEntity = {
     id: '',
     usuario: faker.lorem.sentence(), 
-    correo: faker.lorem.sentence(),
-    fechaNacimiento: faker.lorem.sentence(),
+    correo: faker.internet.email(),
+    fechaNacimiento: faker.date.past({years: 18}),
     clubs: null
   }
 
@@ -65,6 +65,19 @@ describe('SocioService', () => {
   expect(storedSocio.correo).toEqual(newSocio.correo)
   expect(storedSocio.fechaNacimiento).toEqual(newSocio.fechaNacimiento)
  });
+
+
+ it('create should throw an exception for an invalid email from socio', async () => {
+  const socio: SocioEntity = {
+    id: '',
+    usuario: faker.lorem.sentence(), 
+    correo: 'usuarionuevohotmail.com',
+    fechaNacimiento: faker.date.past({years: 18}),
+    clubs: null
+  }
+
+  await expect(service.create(socio)).rejects.toHaveProperty("message", "The email from socio with the given id was not valid");
+});
 
  //Prueba Delete socio
  it('delete should remove a socio', async ()=> {
@@ -93,7 +106,7 @@ describe('SocioService', () => {
   const socio: SocioEntity = socioList[0];
   socio.usuario = "Usuario1"
   socio.correo = "usuario1@hotmail.com"
-  socio.fechaNacimiento = "04/04/2001"
+  socio.fechaNacimiento = new Date('2000-11-08')
 
   const updatedSocio: SocioEntity = await service.update(socio.id, socio);
   expect(updatedSocio).not.toBeNull();
@@ -111,10 +124,19 @@ describe('SocioService', () => {
   const socio: SocioEntity = socioList[0];
   socio.usuario = "Usuario nuevo"
   socio.correo = "usuarionuevo@hotmail.com"
-  socio.fechaNacimiento = "05/05/2001"
+  socio.fechaNacimiento = new Date('1999-11-08')
 
   await expect(() => service.update("0", socio)).rejects.toHaveProperty("message", "The socio with the given id was not found")
  })
+
+ it('update should throw an exception for an invalid email from socio', async () => {
+  const socio: SocioEntity = socioList[0];
+  socio.usuario = "Usuario nuevo"
+  socio.correo = "usuarionuevohotmail.com"
+  socio.fechaNacimiento = new Date('1999-11-08')
+
+  await expect(service.update("0", socio)).rejects.toHaveProperty("message", "The email from socio with the given id was not valid");
+});
 
  //Prueba Find all socios
 
@@ -123,6 +145,7 @@ describe('SocioService', () => {
   expect(socios).not.toBeNull();
   expect(socios).toHaveLength(socioList.length);
  })
+
 
  //Prueba Find one socio
 

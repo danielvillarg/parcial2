@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { SocioEntity } from './socio.entity';
 import { Repository } from 'typeorm';
-import { BusinessError, BusinessLogicException } from 'src/shared/errors/business-errors';
+import { BusinessError, BusinessLogicException } from '../shared/errors/business-errors';
 
 @Injectable()
 export class SocioService {
@@ -17,7 +17,7 @@ export class SocioService {
     //Crear socio 
     async create(socio: SocioEntity): Promise<SocioEntity>{
         if (!socio.correo.includes('@')){
-            throw new BusinessLogicException("Correo electrónico no válido", BusinessError.PRECONDITION_FAILED);
+            throw new BusinessLogicException("The email from socio with the given id was not valid", BusinessError.PRECONDITION_FAILED);
         }
         return await this.socioRepository.save(socio);
     }
@@ -36,7 +36,7 @@ export class SocioService {
 
     async update(id: string, socio: SocioEntity): Promise<SocioEntity>{
         if (!socio.correo.includes('@')){
-            throw new BusinessLogicException("Correo electrónico no válido", BusinessError.PRECONDITION_FAILED);
+            throw new BusinessLogicException("The email from socio with the given id was not valid", BusinessError.PRECONDITION_FAILED);
         }
         const socioPersisted: SocioEntity = await this.socioRepository.findOne({where:{id}});
         if(!socioPersisted)

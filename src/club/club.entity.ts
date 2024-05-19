@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { Column, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { SocioEntity } from "src/socio/socio.entity";
+import { SocioEntity } from "../socio/socio.entity";
 
 @Entity()
 export class ClubEntity {
@@ -9,7 +9,10 @@ export class ClubEntity {
     id: string;
 
     @Column()
-    fechaFundacion: string;
+    nombre: string;
+
+    @Column()
+    fechaFundacion: Date;
 
     @Column()
     imagen: string;

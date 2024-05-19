@@ -6,7 +6,7 @@ import { SocioEntity } from './socio.entity';
 import { plainToInstance } from 'class-transformer';
 import { BusinessErrorsInterceptor } from '../shared/interceptors/business-errors/business-errors.interceptor';
 
-@Controller('socio')
+@Controller('members')
 @UseInterceptors(BusinessErrorsInterceptor)
 export class SocioController {
 

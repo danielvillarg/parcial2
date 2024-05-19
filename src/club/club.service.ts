@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ClubEntity } from './club.entity';
 import { Repository } from 'typeorm';
-import { BusinessError, BusinessLogicException } from 'src/shared/errors/business-errors';
+import { BusinessError, BusinessLogicException } from '../shared/errors/business-errors';
 
 const MAX_DESCRIPTION_LENGTH = 100;
 
@@ -18,10 +18,7 @@ export class ClubService {
     //Crear club 
     async create(club: ClubEntity): Promise<ClubEntity>{
         if (club.descripcion.length > MAX_DESCRIPTION_LENGTH) {
-            throw new BusinessLogicException(
-                `La descripción no puede superar los ${MAX_DESCRIPTION_LENGTH} caracteres`,
-                BusinessError.PRECONDITION_FAILED
-            );
+            throw new BusinessLogicException("The description from club with the given id was not valid", BusinessError.PRECONDITION_FAILED);
         }
         return await this.clubRepository.save(club);
     }
@@ -40,10 +37,7 @@ export class ClubService {
 
     async update(id: string, club: ClubEntity): Promise<ClubEntity>{
         if (club.descripcion.length > MAX_DESCRIPTION_LENGTH) {
-            throw new BusinessLogicException(
-                `La descripción no puede superar los ${MAX_DESCRIPTION_LENGTH} caracteres`,
-                BusinessError.PRECONDITION_FAILED
-            );
+            throw new BusinessLogicException("The description from club with the given id was not valid", BusinessError.PRECONDITION_FAILED);
         }
         const clubPersisted: ClubEntity = await this.clubRepository.findOne({where:{id}});
         if(!clubPersisted)

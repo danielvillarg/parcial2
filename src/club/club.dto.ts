@@ -1,7 +1,11 @@
 /* eslint-disable prettier/prettier */
-import {IsNotEmpty, IsNumber, IsString} from 'class-validator';
+import {IsDate, IsNotEmpty, IsNumber, IsString} from 'class-validator';
 
 export class ClubDto {
+
+    @IsString()
+    @IsNotEmpty()
+    nombre: string;
 
     @IsString()
     @IsNotEmpty()

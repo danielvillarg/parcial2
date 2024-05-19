@@ -1,0 +1,857 @@
+{
+	"info": {
+		"_postman_id": "b193fad9-b80c-48ff-bdea-53350cb3227a",
+		"name": "Socios",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31287824"
+	},
+	"item": [
+		{
+			"name": "Crear un socio válido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = pm.response.json()\r",
+							"pm.environment.set(\"socio_id_1\", data.id)\r",
+							"\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"   pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"usuario\": \"usuario1\",\r\n    \"correo\": \"usuario1@hotmail.com\",\r\n    \"fechaNacimiento\": \"2000-11-08\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/members",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"members"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Crear un socio válido",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"usuario\": \"usuario1\",\r\n    \"correo\": \"usuario1@hotmail.com\",\r\n    \"fechaNacimiento\": \"2000-11-08\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/members",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"members"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "129"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"81-uHm5VBELF4vxZEm5CwZ1Z5B9yLI\""
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 17 May 2024 19:49:19 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"usuario\": \"usuario1\",\n    \"correo\": \"usuario1@hotmail.com\",\n    \"fechaNacimiento\": \"2000-11-08\",\n    \"id\": \"bdc15ea7-5bb1-42ad-834f-f5f63ecf5155\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Crear un socio no válido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 412\", function () {\r",
+							"   pm.response.to.have.status(412);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Get expected error message\", function () {\r",
+							"   var data = pm.response.json();\r",
+							"   pm.expect(data.message).to.eql(\"The email from socio with the given id was not valid\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"usuario\": \"usuario1\",\r\n    \"correo\": \"usuario1hotmail.com\",\r\n    \"fechaNacimiento\": \"2000-11-08\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/members",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"members"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Crear un socio no válido",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"usuario\": \"usuario1\",\r\n    \"correo\": \"usuario1hotmail.com\",\r\n    \"fechaNacimiento\": \"2000-11-08\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/members",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"members"
+							]
+						}
+					},
+					"status": "Precondition Failed",
+					"code": 412,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "83"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"53-9UFBa36eqm5yxTr7QmYLULa21TQ\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 19 May 2024 17:28:02 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"statusCode\": 412,\n    \"message\": \"The email from socio with the given id was not valid\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Obtener todos los socios",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Number of socios > ' + 0, function () {\r",
+							"   var data = pm.response.json()\r",
+							"   pm.expect(data.length).to.greaterThan(0)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"   pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/members",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"members"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Obtener todos los socios",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/members",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"members"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "311"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"137-HO85Cs9tnphh0xnIxSSALQoxSyY\""
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 17 May 2024 19:49:28 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": \"cddfeed9-0f1a-4672-ac92-cb0bd2b8fb53\",\n        \"usuario\": \"usuario1\",\n        \"correo\": \"usuario1@hotmail.com\",\n        \"fechaNacimiento\": \"2000-11-08T05:00:00.000Z\",\n        \"clubs\": []\n    },\n    {\n        \"id\": \"bdc15ea7-5bb1-42ad-834f-f5f63ecf5155\",\n        \"usuario\": \"usuario1\",\n        \"correo\": \"usuario1@hotmail.com\",\n        \"fechaNacimiento\": \"2000-11-08T05:00:00.000Z\",\n        \"clubs\": []\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "Obtener un socio por ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"   pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/members/{{socio_id_1}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"members",
+						"{{socio_id_1}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Obtener un socio por ID",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/members/{{socio_id_1}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"members",
+								"{{socio_id_1}}"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "154"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"9a-qhZVbfd8MNLjbKTObxa/xtD+1tk\""
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 17 May 2024 19:49:39 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": \"bdc15ea7-5bb1-42ad-834f-f5f63ecf5155\",\n    \"usuario\": \"usuario1\",\n    \"correo\": \"usuario1@hotmail.com\",\n    \"fechaNacimiento\": \"2000-11-08T05:00:00.000Z\",\n    \"clubs\": []\n}"
+				}
+			]
+		},
+		{
+			"name": "Obtener un socio por un ID que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"   pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Get expected error message\", function () {\r",
+							"   var data = pm.response.json();\r",
+							"   pm.expect(data.message).to.eql(\"The socio with the given id was not found\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/members/00000000-0000-0000-0000-000000000000",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"members",
+						"00000000-0000-0000-0000-000000000000"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Obtener un socio por un ID que no existe",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/members/00000000-0000-0000-0000-000000000000",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"members",
+								"00000000-0000-0000-0000-000000000000"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "72"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"48-bwnpeMUXrEhj/yH+5wnK/qRqWVQ\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 19 May 2024 17:28:13 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"statusCode\": 404,\n    \"message\": \"The socio with the given id was not found\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Actualizar un socio",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"   pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"usuario\": \"usuario1\",\r\n    \"correo\": \"usuario1@hotmail.com\",\r\n    \"fechaNacimiento\": \"2000-11-08\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/members/{{socio_id_1}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"members",
+						"{{socio_id_1}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Actualizar un socio",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"usuario\": \"usuario1\",\r\n    \"correo\": \"usuario1@hotmail.com\",\r\n    \"fechaNacimiento\": \"2000-11-08\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/members/{{socio_id_1}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"members",
+								"{{socio_id_1}}"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "129"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"81-x9LNbGcLpHpBV9kV9hYdqhKgcAg\""
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 17 May 2024 19:49:48 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": \"bdc15ea7-5bb1-42ad-834f-f5f63ecf5155\",\n    \"usuario\": \"usuario1\",\n    \"correo\": \"usuario1@hotmail.com\",\n    \"fechaNacimiento\": \"2000-11-08\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Actualizar un socio por un ID que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"   pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Get expected error message\", function () {\r",
+							"   var data = pm.response.json();\r",
+							"   pm.expect(data.message).to.eql(\"The socio with the given id was not found\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"usuario\": \"usuario1\",\r\n    \"correo\": \"usuario1@hotmail.com\",\r\n    \"fechaNacimiento\": \"2000-11-08\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/members/00000000-0000-0000-0000-000000000000",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"members",
+						"00000000-0000-0000-0000-000000000000"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Actualizar un socio por un ID que no existe",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"usuario\": \"usuario1\",\r\n    \"correo\": \"usuario1@hotmail.com\",\r\n    \"fechaNacimiento\": \"2000-11-08\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/members/00000000-0000-0000-0000-000000000000",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"members",
+								"00000000-0000-0000-0000-000000000000"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "72"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"48-bwnpeMUXrEhj/yH+5wnK/qRqWVQ\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 19 May 2024 17:28:18 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"statusCode\": 404,\n    \"message\": \"The socio with the given id was not found\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Eliminar un socio por su ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"   pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/members/{{socio_id_1}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"members",
+						"{{socio_id_1}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Eliminar un socio por su ID",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/members/{{socio_id_1}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"members",
+								"{{socio_id_1}}"
+							]
+						}
+					},
+					"status": "No Content",
+					"code": 204,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 17 May 2024 19:49:58 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "Eliminar un socio por un ID que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"   pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Get expected error message\", function () {\r",
+							"   var data = pm.response.json();\r",
+							"   pm.expect(data.message).to.eql(\"The socio with the given id was not found\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/members/00000000-0000-0000-0000-000000000000",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"members",
+						"00000000-0000-0000-0000-000000000000"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Eliminar un socio por un ID que no existe",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/members/00000000-0000-0000-0000-000000000000",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"members",
+								"00000000-0000-0000-0000-000000000000"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "72"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"48-bwnpeMUXrEhj/yH+5wnK/qRqWVQ\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 19 May 2024 17:28:39 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"statusCode\": 404,\n    \"message\": \"The socio with the given id was not found\"\n}"
+				}
+			]
+		}
+	]
+}

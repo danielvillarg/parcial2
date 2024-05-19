@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import {IsNotEmpty, IsNumber, IsString} from 'class-validator';
+import {IsDate, IsNotEmpty, IsNumber, IsString} from 'class-validator';
 
 export class SocioDto {
 
@@ -14,7 +14,5 @@ export class SocioDto {
 
     @IsString()
     @IsNotEmpty()
-    fecha: string;
-
-
+    fechaNacimiento: string;
 }

@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 
 import { Column, Entity, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { ClubEntity } from "src/club/club.entity";
+import { ClubEntity } from "../club/club.entity";
 
 @Entity()
 export class SocioEntity {
@@ -16,7 +16,7 @@ export class SocioEntity {
     correo: string;
 
     @Column()
-    fechaNacimiento: string;
+    fechaNacimiento: Date;
 
     //Relacion con torneo
     @ManyToMany(() => ClubEntity, club=> club.socios)

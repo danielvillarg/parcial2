@@ -4,7 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { SocioEntity } from '../socio/socio.entity';
 import { ClubEntity } from '../club/club.entity';
 import { Repository } from 'typeorm';
-import { BusinessError, BusinessLogicException } from 'src/shared/errors/business-errors';
+import { BusinessError, BusinessLogicException } from '../shared/errors/business-errors';
 
 @Injectable()
 export class ClubSocioService {
@@ -24,7 +24,7 @@ export class ClubSocioService {
         const socio: SocioEntity = await this.socioRepository.findOne({where: {id:socioId}})
 
         if(!socio)
-            throw new BusinessLogicException("The comment with the given id was not found", BusinessError.NOT_FOUND)
+            throw new BusinessLogicException("The socio with the given id was not found", BusinessError.NOT_FOUND)
 
         const club: ClubEntity = await this.clubRepository.findOne({where: {id: clubId}, relations:['socios']})
 
@@ -43,7 +43,7 @@ export class ClubSocioService {
         const socio: SocioEntity = await this.socioRepository.findOne({where: {id:socioId}})
 
         if(!socio)
-            throw new BusinessLogicException("The comment with the given id was not found", BusinessError.NOT_FOUND)
+            throw new BusinessLogicException("The socio with the given id was not found", BusinessError.NOT_FOUND)
 
         const club: ClubEntity = await this.clubRepository.findOne({where: {id: clubId}, relations:['socios']})
 
@@ -71,7 +71,7 @@ export class ClubSocioService {
     }
 
     //associateSociosClub
-    async updateMemberFromClub(clubId: string, socios: SocioEntity[] ): Promise<ClubEntity>{
+    async updateMembersFromClub(clubId: string, socios: SocioEntity[] ): Promise<ClubEntity>{
 
         const club: ClubEntity = await this.clubRepository.findOne({where: {id: clubId}, relations:["socios"]})
 
@@ -80,9 +80,8 @@ export class ClubSocioService {
 
         for(let i=0; i<socios.length; i++){
             const socio: SocioEntity = await this.socioRepository.findOne({where: {id: socios[i].id}})
-
             if(!socio)
-                throw new BusinessLogicException("The comment with the given id was not found", BusinessError.NOT_FOUND)
+                throw new BusinessLogicException("The socio with the given id was not found", BusinessError.NOT_FOUND)
         }
 
         club.socios = socios
@@ -96,7 +95,7 @@ export class ClubSocioService {
         const socio: SocioEntity = await this.socioRepository.findOne({where: {id:socioId}})
 
         if(!socio)
-            throw new BusinessLogicException("The comment with the given id was not found", BusinessError.NOT_FOUND)
+            throw new BusinessLogicException("The socio with the given id was not found", BusinessError.NOT_FOUND)
 
         const club: ClubEntity = await this.clubRepository.findOne({where: {id: clubId}, relations:['socios']})
 
